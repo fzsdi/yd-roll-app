@@ -1,0 +1,67 @@
+import React, { useState } from 'react'
+
+const BASE_URL = 'https://localhost:7092/login';
+const UNAUTHENTICATED = 401;
+const NOT_VALID_ERR = "Your username or password is not valid, please try again."
+const IS_EMPTY_ERR = "Please enter your username and password."
+const WENT_WRONG_ERR = 'Something went wrong :(';
+
+const LoginPage = () => {
+  const[username, setUsername] = useState('');
+  const[password, setPassword] = useState('');
+  async function loginUser(url: string, username: number, password: string) {
+    if (!isNaN(username) && password !== "") {
+      const loginInfo = {
+        username, password
+      };
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginInfo)
+        });
+        if (!response.ok) {
+          switch (response.status) {
+            case UNAUTHENTICATED:
+              throw Error(NOT_VALID_ERR);
+            default:
+              throw Error(WENT_WRONG_ERR);
+          }
+        }
+        let reader = response.body?.getReader();
+        let decoder = new TextDecoder('utf-8');
+
+        return reader?.read().then(function (result) {
+          console.log(result.value);
+          return decoder.decode(result.value);
+        });
+      } catch(err) {
+        alert(err);
+      }
+    } else {
+      alert(IS_EMPTY_ERR);
+    }
+  }
+  const onSubmit = (e: React.ChangeEvent<any>) => {
+    e.preventDefault();
+  };
+  return (
+    <div>
+        <form onSubmit={onSubmit}>
+            <input required style={{margin: '10px'}}
+            placeholder='Username' type='number'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}></input>
+            <input required style={{margin: '10px', marginLeft: '0px'}}
+            placeholder='Password' type='password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}></input>
+            <button onClick={() => loginUser(BASE_URL, parseInt(username), password)}>Login</button>
+        </form>
+    </div>
+  )
+}
+
+export default LoginPage
