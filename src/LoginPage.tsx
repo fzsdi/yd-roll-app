@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const BASE_URL = 'https://localhost:7092/login';
 const UNAUTHENTICATED = 401;
@@ -9,6 +9,7 @@ const WENT_WRONG_ERR = 'Something went wrong :(';
 const LoginPage = () => {
   const[username, setUsername] = useState('');
   const[password, setPassword] = useState('');
+  const myStorage = window.sessionStorage;
   async function loginUser(url: string, username: number, password: string) {
     if (!isNaN(username) && password !== "") {
       const loginInfo = {
@@ -34,8 +35,10 @@ const LoginPage = () => {
         let decoder = new TextDecoder('utf-8');
 
         return reader?.read().then(function (result) {
-          console.log(result.value);
-          return decoder.decode(result.value);
+          console.log(decoder.decode(result.value));
+          myStorage.setItem('Token', decoder.decode(result.value));
+          window.location.reload();
+          // return decoder.decode(result.value);
         });
       } catch(err) {
         alert(err);
@@ -47,6 +50,29 @@ const LoginPage = () => {
   const onSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
   };
+  // function fetchStream(reader: ReadableStreamDefaultReader) {
+  //   // const reader = stream.getReader();
+  //   let charReceived = 0;
+
+  //   reader.read().then(function processText({done, value}): any {
+  //     if (done) {
+  //       console.log("Stream complete");
+  //       return;
+  //     }
+
+  //     charReceived += value.length;
+  //     const chunk = value;
+  //     console.log(charReceived);
+  //     console.log(chunk);
+  //     // let listItem = document.createElement('li');
+  //     // listItem.textContent = 'Received ' + charReceived + ' characters so far. Current chunk = ' + chunk;
+  //     // list2.appendChild(listItem);
+
+  //     // result += chunk;
+
+  //     return reader.read().then(processText);
+  //   });
+  // }
   return (
     <div>
         <form onSubmit={onSubmit}>
