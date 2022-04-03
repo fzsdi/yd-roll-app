@@ -6,7 +6,9 @@ import Header from './Header';
 interface Person { id: number, fullName: string, isPresent: boolean };
 const BASE_URL = 'http://localhost:5053/persons';
 const CONFLICT = 409;
+const UNAUTHENTICATED = 401;
 const BAD_REQUEST = 400;
+const UNAUTHENTICATED_ERR = 'You do not have the authority to perform this action.'
 const BAD_REQUEST_ERR = 'Server cannot response.';
 const WENT_WRONG_ERR = 'Something went wrong :(';
 const NULL_ERR = 'Please enter id and full name.';
@@ -15,6 +17,8 @@ const Content = () => {
     const [persons, setPersons] = useState<Person[]>([]);
     const [fullName, setFullName] = useState('');
     const [id, setId] = useState('');
+    const myStorage = window.sessionStorage;
+    const userToken = myStorage.getItem('Token');
 
     useEffect(() => {
         const getPersons = async () => {
@@ -34,12 +38,15 @@ const Content = () => {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': userToken!
                     },
                     body: JSON.stringify(newPerson)
                 });
                 if (!response.ok) {
                     switch(response.status) {
+                        case UNAUTHENTICATED:
+                            throw Error(UNAUTHENTICATED_ERR);
                         case CONFLICT:
                             throw Error(`A person with id ${id} already exists.`);
                         case BAD_REQUEST:
@@ -67,11 +74,19 @@ const Content = () => {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': userToken!
                 },
                 body: JSON.stringify(updatedPerson[0])
             });
-            if (!response.ok) throw Error(WENT_WRONG_ERR);
+            if (!response.ok) {
+                switch(response.status) {
+                    case UNAUTHENTICATED:
+                        throw Error(UNAUTHENTICATED_ERR);
+                    default:
+                        throw Error(WENT_WRONG_ERR);
+                }
+            }
             setPersons(listPersons);
         } catch(err) {
             alert(err)
@@ -84,10 +99,19 @@ const Content = () => {
             setPersons(personsList);
 
             const response = await fetch(url, {
-                method: 'DELETE'
-            })
-
-            if (!response.ok) throw Error(WENT_WRONG_ERR);
+                method: 'DELETE',
+                headers: {
+                    'Authorization': userToken!
+                }
+            });
+            if (!response.ok) {
+                switch(response.status) {
+                    case UNAUTHENTICATED:
+                        throw Error(UNAUTHENTICATED_ERR);
+                    default:
+                        throw Error(WENT_WRONG_ERR);
+                }
+            }
         } catch(err) {
             alert(err);
         }
