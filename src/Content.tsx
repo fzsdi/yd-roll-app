@@ -17,8 +17,12 @@ const Content = () => {
     const [persons, setPersons] = useState<Person[]>([]);
     const [fullName, setFullName] = useState('');
     const [id, setId] = useState('');
-    const myStorage = window.sessionStorage;
-    const userToken = myStorage.getItem('Token');
+
+    function getToken() : string {
+        const myStorage = window.sessionStorage;
+        const userToken = myStorage.getItem('Token');
+        return userToken!;
+    }
 
     useEffect(() => {
         const getPersons = async () => {
@@ -39,7 +43,7 @@ const Content = () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': userToken!
+                        'Authorization': getToken()
                     },
                     body: JSON.stringify(newPerson)
                 });
@@ -66,16 +70,16 @@ const Content = () => {
     }
 
     async function updatePersons(url: string, id: number) {
+        const listPersons = persons.map((person) => person.id === id ? { ...person,
+            isPresent: !person.isPresent} : person);
+        const updatedPerson = listPersons.filter((person) => person.id === id);
         try {
-            const listPersons = persons.map((person) => person.id === id ? { ...person,
-                isPresent: !person.isPresent} : person);
-            const updatedPerson = listPersons.filter((person) => person.id === id);
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': userToken!
+                    'Authorization': getToken()
                 },
                 body: JSON.stringify(updatedPerson[0])
             });
@@ -95,13 +99,10 @@ const Content = () => {
 
     async function deletePersons(url: string, id: number) {
         try {
-            const personsList = persons.filter((person) => person.id !== id);
-            setPersons(personsList);
-
             const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': userToken!
+                    'Authorization': getToken()
                 }
             });
             if (!response.ok) {
@@ -112,6 +113,8 @@ const Content = () => {
                         throw Error(WENT_WRONG_ERR);
                 }
             }
+            const personsList = persons.filter((person) => person.id !== id);
+            setPersons(personsList);
         } catch(err) {
             alert(err);
         }
