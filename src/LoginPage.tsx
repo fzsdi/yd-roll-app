@@ -38,7 +38,6 @@ const LoginPage = () => {
           console.log(decoder.decode(result.value));
           myStorage.setItem('Token', decoder.decode(result.value));
           window.location.reload();
-          // return decoder.decode(result.value);
         });
       } catch(err) {
         alert(err);
@@ -50,29 +49,7 @@ const LoginPage = () => {
   const onSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
   };
-  // function fetchStream(reader: ReadableStreamDefaultReader) {
-  //   // const reader = stream.getReader();
-  //   let charReceived = 0;
 
-  //   reader.read().then(function processText({done, value}): any {
-  //     if (done) {
-  //       console.log("Stream complete");
-  //       return;
-  //     }
-
-  //     charReceived += value.length;
-  //     const chunk = value;
-  //     console.log(charReceived);
-  //     console.log(chunk);
-  //     // let listItem = document.createElement('li');
-  //     // listItem.textContent = 'Received ' + charReceived + ' characters so far. Current chunk = ' + chunk;
-  //     // list2.appendChild(listItem);
-
-  //     // result += chunk;
-
-  //     return reader.read().then(processText);
-  //   });
-  // }
   return (
     <div>
         <form onSubmit={onSubmit}>
