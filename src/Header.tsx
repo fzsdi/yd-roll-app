@@ -7,7 +7,7 @@ const Header = () => {
   }
   return (
     <div>
-        <p style={{margin: '10px 0px 0px 10px', color: 'blue'}} onClick={handleLogOut}>Logout</p>
+        <p className="pointer" style={{margin: '10px 0px 0px 10px', color: 'blue'}} onClick={handleLogOut}>Logout</p>
     </div>
   )
 }

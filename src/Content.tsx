@@ -125,7 +125,7 @@ const Content = () => {
             {person.id}) {person.fullName}
             <button style={{marginLeft: '10px'}}
                 onClick={() => deletePersons(`${BASE_URL}/${person.id}`, person.id)}>Delete</button>
-            <input style={{marginLeft: '10px'}}
+            <input className='check-present' style={{marginLeft: '10px'}}
                 type='checkbox'
                 checked={person.isPresent}
                 onChange={() => updatePersons(`${BASE_URL}/${person.id}`, person.id)}></input>
