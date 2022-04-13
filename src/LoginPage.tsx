@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LoginPage.css'
 
 const BASE_URL = 'https://localhost:7092/login';
 const UNAUTHENTICATED = 401;
@@ -51,17 +52,17 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-        <form onSubmit={onSubmit}>
-            <input required style={{margin: '10px'}}
-            placeholder='Username' type='number'
+    <div id='sign-in'>
+        <form className='form' onSubmit={onSubmit}>
+            <input required className='input'
+            placeholder='Username'
             value={username}
             onChange={(e) => setUsername(e.target.value)}></input>
-            <input required style={{margin: '10px', marginLeft: '0px'}}
+            <input required className='input'
             placeholder='Password' type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}></input>
-            <button onClick={() => loginUser(BASE_URL, parseInt(username), password)}>Login</button>
+            <button className='btn-sub' onClick={() => loginUser(BASE_URL, parseInt(username), password)}>Login</button>
         </form>
     </div>
   )

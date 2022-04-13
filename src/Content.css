@@ -1,0 +1,96 @@
+#btn-delete {
+    width: fit-content;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 5px;
+    border: none;
+    background-color: #d174a6;
+}
+  
+#btn-delete:hover {
+    color: red;
+}
+  
+#cb-is-present {
+    width: fit-content;
+    cursor: pointer;
+}
+
+#log-out-p {
+    color: red;
+    cursor: pointer;
+    width: fit-content;
+    color: #903164;
+    margin-left: 3ex;
+}
+
+#log-out-p:hover {
+    font-weight: bold;
+}
+
+.input-reg {
+    margin: 1ex;
+    display: flex;
+    width: 40%;
+    text-align: center;
+    font-size: 1.1em;
+    padding: 1ex;
+    border: 2px solid #ECF0F1;
+    border-radius: 1ex;
+    background: #ECF0F1;
+    color: #181818;
+    font-family: courier;
+}
+
+.btn-reg {
+    color: white;
+    background: #903164;
+    cursor: pointer;
+    margin: 1ex;
+    text-align: center;
+    font-size: 1.1em;
+    padding: 1ex;
+    border: 2px solid #cb92b0;
+    border-radius: 1ex;
+    font-family: courier;
+    width: 10%;
+    display: inline;
+}
+
+.btn-reg:hover {
+    background-color: #d174a6;
+    border-color: #d174a6;
+}
+
+#persons-list {
+    padding: 1em;
+    margin: 1em;
+    border-radius: 1em;
+    text-align: left;
+    background: #cb92b0;
+    color: rgba(0,0,0,0.75);
+}
+
+#id-inp {
+    width: 30%;
+    display: inline;
+}
+
+#name-inp {
+    width: 53%;
+    display: inline;
+}
+
+#prsnl-div {
+    margin-left: 3ex;
+    color: white;
+}
+
+#cntnt-div {
+    position:absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+}

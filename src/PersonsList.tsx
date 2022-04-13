@@ -4,8 +4,8 @@ type Props = {
 
 const PersonsList = (props: Props) => {
   return (
-    <div>
-        <p style={{fontWeight: 'bold', margin: '10px', marginTop: '0px'}}>
+    <div id="prsnl-div">
+        <p>
             Personnel
         </p>
         <ul>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import AddPerson from './AddPerson';
 import PersonsList from './PersonsList';
 import Header from './Header';
+import './Content.css'
 
 interface Person { id: number, fullName: string, isPresent: boolean };
 const BASE_URL = 'http://localhost:5053/persons';
@@ -121,27 +122,33 @@ const Content = () => {
     }
 
     const personsList = persons.map((person) =>
-        <li key={person.id} style={{margin: '10px'}}>
-            {person.id}) {person.fullName}
-            <button style={{marginLeft: '10px'}}
-                onClick={() => deletePersons(`${BASE_URL}/${person.id}`, person.id)}>Delete</button>
-            <input className='check-present' style={{marginLeft: '10px'}}
+        <div>
+            <li key={person.id}>
+                {person.id}) {person.fullName}
+            <button id='btn-delete'
+                onClick={() => deletePersons(`${BASE_URL}/${person.id}`, person.id)}>
+                    <i className='fa fa-trash-o'></i>
+            </button>
+            <input id='cb-is-present'
                 type='checkbox'
                 checked={person.isPresent}
                 onChange={() => updatePersons(`${BASE_URL}/${person.id}`, person.id)}></input>
-        </li>
+            </li>
+        </div>
     );
 
     return (
-        <div>
+        <div id='cntnt-div'>
             <Header />
-            <AddPerson
-                id={id}
-                setId={setId}
-                fullName={fullName}
-                setFullName={setFullName}
-                postPersons={postPersons}
-            />
+            <div id='persons-list'>
+                <AddPerson
+                    id={id}
+                    setId={setId}
+                    fullName={fullName}
+                    setFullName={setFullName}
+                    postPersons={postPersons}
+                />
+            </div>
             <PersonsList
                 personsList={personsList}
             />

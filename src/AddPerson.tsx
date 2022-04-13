@@ -16,15 +16,15 @@ const AddPerson = (props: Props) => {
   };
   return (
     <form onSubmit={onSubmit}>
-        <input required style={{margin: '10px'}}
-            type='text' placeholder='ID'
+        <input className='input-reg' id='id-inp' required
+            type='text' placeholder='Id'
             value={props.id} 
             onChange={(e) => props.setId(e.target.value)}></input>
-        <input required style={{margin: '10px', marginLeft: '0px'}}
-            type='text' placeholder='Full name'
+        <input className='input-reg' id='name-inp' required
+            type='text' placeholder='Name'
             value={props.fullName} 
             onChange={(e) => props.setFullName(e.target.value)}></input>
-        <button onClick={() => props.postPersons(BASE_URL, parseInt(props.id), props.fullName)}>Add person</button>
+        <button className='btn-reg' onClick={() => props.postPersons(BASE_URL, parseInt(props.id), props.fullName)}>+</button>
     </form>
   )
 }
