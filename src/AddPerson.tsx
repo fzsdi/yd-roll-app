@@ -15,16 +15,16 @@ const AddPerson = (props: Props) => {
       e.preventDefault();
   };
   return (
-    <form onSubmit={onSubmit}>
-        <input className='input-reg' id='id-inp' required
+    <form className='box-add' onSubmit={onSubmit}>
+        <input id='input-id' required
             type='text' placeholder='Id'
             value={props.id} 
             onChange={(e) => props.setId(e.target.value)}></input>
-        <input className='input-reg' id='name-inp' required
+        <input required
             type='text' placeholder='Name'
             value={props.fullName} 
             onChange={(e) => props.setFullName(e.target.value)}></input>
-        <button className='btn-reg' onClick={() => props.postPersons(BASE_URL, parseInt(props.id), props.fullName)}>+</button>
+        <button onClick={() => props.postPersons(BASE_URL, parseInt(props.id), props.fullName)}>+</button>
     </form>
   )
 }

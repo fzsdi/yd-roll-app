@@ -1,96 +1,115 @@
-#btn-delete {
-    width: fit-content;
-    cursor: pointer;
-    padding: 0;
-    margin-bottom: 5px;
-    margin-left: 10px;
-    margin-right: 5px;
-    border: none;
-    background-color: #d174a6;
-}
-  
-#btn-delete:hover {
-    color: red;
-}
-  
-#cb-is-present {
-    width: fit-content;
-    cursor: pointer;
+.div-add {
+    padding: 10px;
+    transition: 0.35s;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-left: 28px;
 }
 
-#log-out-p {
-    color: red;
-    cursor: pointer;
-    width: fit-content;
-    color: #903164;
-    margin-left: 3ex;
-}
-
-#log-out-p:hover {
-    font-weight: bold;
-}
-
-.input-reg {
-    margin: 1ex;
+.box-add {
     display: flex;
-    width: 40%;
-    text-align: center;
-    font-size: 1.1em;
-    padding: 1ex;
-    border: 2px solid #ECF0F1;
-    border-radius: 1ex;
-    background: #ECF0F1;
-    color: #181818;
-    font-family: courier;
 }
 
-.btn-reg {
-    color: white;
-    background: #903164;
+.box-add input {
+    text-align: center;
+    background: #ffffff;
+    transition: 0.35s;
+    border: 0;
+    display: block;
+    border: 2px solid #b877a5; 
+    padding: 14px 10px;
+    font-family: 'Trebuchet MS';
+    display: flex;
+    outline: none;
+    margin-right: 5px;
+}
+
+.box-add input:focus {
+    border-color: #772953;
+}
+
+#input-id {
+    border-top-left-radius: 24px 24px;
+    border-bottom-left-radius: 24px 24px;
+    width: 50px;
+}
+
+.box-add button {
+    background-color: #ffffff;
+    display: flex;
+    outline: none;
+    border-top-right-radius: 24px 24px;
+    border-bottom-right-radius: 24px 24px;
+    width: 60px;
+    text-align: center;
+    display: block;
+    text-align: center;
+    border: 2px solid #772953;
+    outline: none;
+    font-family: 'Trebuchet MS';
+    color: #000000;
+    transition: 0.35s;
     cursor: pointer;
-    margin: 1ex;
-    text-align: center;
-    font-size: 1.1em;
-    padding: 1ex;
-    border: 2px solid #cb92b0;
-    border-radius: 1ex;
-    font-family: courier;
-    width: 10%;
-    display: inline;
+    font-family: 'Trebuchet MS';
 }
 
-.btn-reg:hover {
-    background-color: #d174a6;
-    border-color: #d174a6;
+.box-add button:hover {
+    background: #772953;
+    color: #ffffff;
 }
 
-#persons-list {
-    padding: 1em;
-    margin: 1em;
-    border-radius: 1em;
-    text-align: left;
-    background: #cb92b0;
-    color: rgba(0,0,0,0.75);
+.box-add button:focus {
+    background: #772953;
+    color: #ffffff;
 }
 
-#id-inp {
-    width: 30%;
-    display: inline;
+.div-list {
+    width: 300px;
+    padding: 10px;
+    transition: 0.35s;
+    border-radius: 10px;
+    background: #772953;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px #76425e;
 }
 
-#name-inp {
-    width: 53%;
-    display: inline;
+.div-content {
+    position: absolute;
+    left: 35%;
 }
 
-#prsnl-div {
-    margin-left: 3ex;
-    color: white;
+.div-list:hover {
+    background: #b877a5;
+    box-shadow: 0 14px 28px #f3b4e0;
 }
 
-#cntnt-div {
-    position:absolute;
-    top: 0;
-    left: 20%;
-    right: 20%;
+.li-show {
+    list-style-type: none;
+    color: #ffffff;
+}
+
+.div-options {
+    display: inline-block;
+    margin-left: 23px;
+}
+
+.div-title {
+    display: inline-block;
+    width: 230px;
+}
+
+.button-delete {
+    outline: none;
+    color: #ffffff;
+    background: transparent;
+    border: none;
+}
+
+.button-delete:hover {
+    cursor: pointer;
+    color: #ff0000;
+}
+
+.checkbox-update {
+    cursor: pointer;
 }

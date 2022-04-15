@@ -1,66 +1,73 @@
-* {
-    box-sizing: border-box;
-  }
-  
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  min-height: 100vh;
-  background: #d174a6;
-  font-family: courier;
-}
-
-#sign-in {
-  padding: 1em;
-  margin: 1em;
-  border-radius: 1em;
-  text-align: center;
-  background: white;
-  color: rgba(0,0,0,0.75);
-}
-
-h1, button {
-    font-weight: 300;
-    text-transform: uppercase;
-    font-family: courier;
-}
-
-.form {
-  padding-right: 2ex;
-}
-  
-.input {
-  margin: 1ex;
+.box {
   display: block;
-  width: 100%;
+  width: 300px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
   text-align: center;
-  font-size: 1.1em;
-  padding: 1ex;
-  border: 2px solid #ECF0F1;
-  border-radius: 1ex;
-  background: #ECF0F1;
-  color: #181818;
-  font-family: courier;
+  border-radius: 10px;
 }
 
-.btn-sub {
-  color: white;
-  background: #903164;
+.box-login {
+  box-shadow: 0 3px 10px #868686;
+  transition: all 0.6s;
+}
+
+.box-login:hover {
+  box-shadow: 0 14px 28px #663951;
+}
+
+.box input {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #772953;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: #000000;
+  border-radius: 24px;
+  transition: 0.35s;
+  font-family: 'Trebuchet MS';
+}
+.box h1 {
+  color: #000000;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.box input:focus {
+  width: 280px;
+  border-color: #df9fc1;
+}
+
+.box button {
+  border: 0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid #df9fc1;
+  padding: 14px 40px;
+  outline: none;
+  color: #000000;
+  border-radius: 24px;
+  transition: 0.35s;
   cursor: pointer;
-  margin: 1ex;
-  display: block;
-  width: 100%;
-  text-align: center;
-  font-size: 1.1em;
-  padding: 1ex;
-  border: 2px solid #ECF0F1;
-  border-radius: 1ex;
-  font-family: courier;
+  font-family: 'Trebuchet MS';
 }
 
-.btn-sub:hover {
-  background-color: #d174a6;
-  border-color: #d174a6;
+.box button:hover {
+  background: #df9fc1;
+  color: #ffffff;
+}
+
+.box button:focus {
+  background: #df9fc1;
+  color: #ffffff;
 }

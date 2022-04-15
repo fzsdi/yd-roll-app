@@ -4,10 +4,7 @@ type Props = {
 
 const PersonsList = (props: Props) => {
   return (
-    <div id="prsnl-div">
-        <p>
-            Personnel
-        </p>
+    <div>
         <ul>
             {props.personsList}
         </ul>

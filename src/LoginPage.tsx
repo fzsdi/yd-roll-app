@@ -52,17 +52,18 @@ const LoginPage = () => {
   };
 
   return (
-    <div id='sign-in'>
-        <form className='form' onSubmit={onSubmit}>
-            <input required className='input'
+    <div>
+        <form className='box box-login' onSubmit={onSubmit}>
+            <h1>Login</h1>
+            <input required
             placeholder='Username'
             value={username}
             onChange={(e) => setUsername(e.target.value)}></input>
-            <input required className='input'
+            <input required
             placeholder='Password' type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}></input>
-            <button className='btn-sub' onClick={() => loginUser(BASE_URL, parseInt(username), password)}>Login</button>
+            <button onClick={() => loginUser(BASE_URL, parseInt(username), password)}>Login</button>
         </form>
     </div>
   )

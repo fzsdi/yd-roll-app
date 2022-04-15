@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,23 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Trebuchet MS';
+  background: #df9fc1;
 }
+
+.box-logout p {
+  margin-left: 20px;
+  color: #772953;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.box-logout p:hover {
+  font-weight: bold;
+}
+

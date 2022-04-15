@@ -6,8 +6,8 @@ const Header = () => {
     window.location.reload();
   }
   return (
-    <div>
-        <p id='log-out-p' onClick={handleLogOut}>Logout</p>
+    <div className='box-logout'>
+        <p onClick={handleLogOut}>Logout</p>
     </div>
   )
 }

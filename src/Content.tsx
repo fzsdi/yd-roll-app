@@ -122,36 +122,41 @@ const Content = () => {
     }
 
     const personsList = persons.map((person) =>
-        <div>
-            <li key={person.id}>
-                {person.id}) {person.fullName}
-            <button id='btn-delete'
-                onClick={() => deletePersons(`${BASE_URL}/${person.id}`, person.id)}>
-                    <i className='fa fa-trash-o'></i>
-            </button>
-            <input id='cb-is-present'
-                type='checkbox'
-                checked={person.isPresent}
-                onChange={() => updatePersons(`${BASE_URL}/${person.id}`, person.id)}></input>
-            </li>
+        <div className='div-list'>
+            <div className='div-title'>
+                <li className='li-show' key={person.id}>
+                        {person.id}) {person.fullName}
+                </li>
+            </div>
+            <div className='div-options'>
+                <button className='button-delete' onClick={() => deletePersons(`${BASE_URL}/${person.id}`, person.id)}>
+                        <i className='fa fa-trash-o'></i>
+                </button>
+                <input className='checkbox-update'
+                    type='checkbox'
+                    checked={person.isPresent}
+                    onChange={() => updatePersons(`${BASE_URL}/${person.id}`, person.id)}></input>
+            </div>
         </div>
     );
 
     return (
-        <div id='cntnt-div'>
+        <div>
             <Header />
-            <div id='persons-list'>
-                <AddPerson
-                    id={id}
-                    setId={setId}
-                    fullName={fullName}
-                    setFullName={setFullName}
-                    postPersons={postPersons}
+            <div className='div-content'>
+                <div className='div-add'>
+                    <AddPerson
+                        id={id}
+                        setId={setId}
+                        fullName={fullName}
+                        setFullName={setFullName}
+                        postPersons={postPersons}
+                    />
+                </div>
+                <PersonsList
+                    personsList={personsList}
                 />
             </div>
-            <PersonsList
-                personsList={personsList}
-            />
         </div>
     );
 }
