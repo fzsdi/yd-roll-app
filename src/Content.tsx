@@ -5,7 +5,7 @@ import Header from './Header';
 import './Content.css'
 
 interface Person { id: number, fullName: string, isPresent: boolean };
-const BASE_URL = 'http://localhost:443/persons';
+const BASE_URL = 'https://localhost:443/persons';
 const CONFLICT = 409;
 const UNAUTHENTICATED = 401;
 const BAD_REQUEST = 400;

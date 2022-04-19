@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginPage.css'
 
-const BASE_URL = 'http://localhost:443/login';
+const BASE_URL = 'https://localhost:443/login';
 const UNAUTHENTICATED = 401;
 const NOT_VALID_ERR = "Your username or password is not valid, please try again."
 const IS_EMPTY_ERR = "Please enter your username and password."

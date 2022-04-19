@@ -7,7 +7,7 @@ type Props = {
     postPersons: (url: string, id: number, fullName: string) => Promise<any>
 };
 
-const BASE_URL = 'http://localhost:443/persons';
+const BASE_URL = 'https://localhost:443/persons';
 
 const AddPerson = (props: Props) => {
   
