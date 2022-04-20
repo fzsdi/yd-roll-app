@@ -5,7 +5,7 @@ type Props = {
 const PersonsList = (props: Props) => {
   return (
     <div>
-        <ul>
+        <ul className="ul-list">
             {props.personsList}
         </ul>
     </div>
