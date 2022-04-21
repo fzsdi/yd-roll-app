@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
+import configData from "./config.json";
 import './LoginPage.css'
-
-const BASE_URL = 'https://localhost:443/login';
-const UNAUTHENTICATED = 401;
-const NOT_VALID_ERR = "Your username or password is not valid, please try again."
-const IS_EMPTY_ERR = "Please enter your username and password."
-const WENT_WRONG_ERR = 'Something went wrong :(';
 
 const LoginPage = () => {
   const[username, setUsername] = useState('');
@@ -26,10 +21,10 @@ const LoginPage = () => {
         });
         if (!response.ok) {
           switch (response.status) {
-            case UNAUTHENTICATED:
-              throw Error(NOT_VALID_ERR);
+            case configData.STATUS_CODES.UNAUTHENTICATED:
+              throw Error(configData.MESSAGES.NOT_VALID_ERR);
             default:
-              throw Error(WENT_WRONG_ERR);
+              throw Error(configData.MESSAGES.WENT_WRONG_ERR);
           }
         }
         let reader = response.body?.getReader();
@@ -44,16 +39,13 @@ const LoginPage = () => {
         alert(err);
       }
     } else {
-      alert(IS_EMPTY_ERR);
+      alert(configData.MESSAGES.IS_EMPTY_ERR);
     }
   }
-  const onSubmit = (e: React.ChangeEvent<any>) => {
-    e.preventDefault();
-  };
-
+  
   return (
     <div>
-        <form className='box box-login' onSubmit={onSubmit}>
+        <div className='box box-login'>
             <h1>Login</h1>
             <input required
             placeholder='Username'
@@ -63,10 +55,10 @@ const LoginPage = () => {
             placeholder='Password' type='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}></input>
-            <button onClick={() => loginUser(BASE_URL, parseInt(username), password)}>Login</button>
-        </form>
+            <button onClick={() => loginUser(configData.BASE_URL + "/login", parseInt(username), password)}>Login</button>
+        </div>
     </div>
   )
 }
 
-export default LoginPage
+export default LoginPage;

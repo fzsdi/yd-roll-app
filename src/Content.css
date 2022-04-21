@@ -18,7 +18,7 @@
     transition: 0.35s;
     border: 0;
     display: block;
-    border: 2px solid #b877a5; 
+    border: 2px solid #b877a5;
     padding: 14px 10px;
     font-family: 'Trebuchet MS';
     display: flex;
@@ -31,8 +31,8 @@
 }
 
 #input-id {
-    border-top-left-radius: 24px 24px;
-    border-bottom-left-radius: 24px 24px;
+    border-top-left-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
     width: 30px;
 }
 
@@ -40,9 +40,9 @@
     background-color: #ffffff;
     display: flex;
     outline: none;
-    border-top-right-radius: 24px 24px;
-    border-bottom-right-radius: 24px 24px;
-    width: 60px;
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    width: 54px;
     text-align: center;
     display: block;
     text-align: center;

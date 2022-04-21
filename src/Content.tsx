@@ -3,21 +3,12 @@ import AddPerson from './AddPerson';
 import PersonsList from './PersonsList';
 import Header from './Header';
 import './Content.css'
+import configData from "./config.json";
 
 interface Person { id: number, fullName: string, isPresent: boolean };
-const BASE_URL = 'https://localhost:443/persons';
-const CONFLICT = 409;
-const UNAUTHENTICATED = 401;
-const BAD_REQUEST = 400;
-const UNAUTHENTICATED_ERR = 'You do not have the authority to perform this action.'
-const BAD_REQUEST_ERR = 'Server cannot response.';
-const WENT_WRONG_ERR = 'Something went wrong :(';
-const NULL_ERR = 'Please enter id and full name.';
 
 const Content = () => {
     const [persons, setPersons] = useState<Person[]>([]);
-    const [fullName, setFullName] = useState('');
-    const [id, setId] = useState('');
 
     function getToken() : string {
         const myStorage = window.sessionStorage;
@@ -27,7 +18,7 @@ const Content = () => {
 
     useEffect(() => {
         const getPersons = async () => {
-            const response = await fetch(BASE_URL);
+            const response = await fetch(configData.BASE_URL + "/persons");
             const persons = await response.json();
             setPersons(persons);
         }
@@ -50,14 +41,14 @@ const Content = () => {
                 });
                 if (!response.ok) {
                     switch(response.status) {
-                        case UNAUTHENTICATED:
-                            throw Error(UNAUTHENTICATED_ERR);
-                        case CONFLICT:
+                        case configData.STATUS_CODES.UNAUTHENTICATED:
+                            throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
+                        case configData.STATUS_CODES.CONFLICT:
                             throw Error(`A person with id ${id} already exists.`);
-                        case BAD_REQUEST:
-                            throw Error(BAD_REQUEST_ERR);
+                        case configData.STATUS_CODES.BAD_REQUEST:
+                            throw Error(configData.MESSAGES.BAD_REQUEST_ERR);
                         default:
-                            throw Error(WENT_WRONG_ERR);
+                            throw Error(configData.MESSAGES.WENT_WRONG_ERR);
                     }
                 }
                 const personsList = [...persons, newPerson];
@@ -66,7 +57,7 @@ const Content = () => {
                 alert(err);
             }
         } else {
-            alert(NULL_ERR);
+            alert(configData.MESSAGES.NULL_ERR);
         }
     }
 
@@ -86,10 +77,10 @@ const Content = () => {
             });
             if (!response.ok) {
                 switch(response.status) {
-                    case UNAUTHENTICATED:
-                        throw Error(UNAUTHENTICATED_ERR);
+                    case configData.STATUS_CODES.UNAUTHENTICATED:
+                        throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
                     default:
-                        throw Error(WENT_WRONG_ERR);
+                        throw Error(configData.MESSAGES.WENT_WRONG_ERR);
                 }
             }
             setPersons(listPersons);
@@ -108,10 +99,10 @@ const Content = () => {
             });
             if (!response.ok) {
                 switch(response.status) {
-                    case UNAUTHENTICATED:
-                        throw Error(UNAUTHENTICATED_ERR);
+                    case configData.STATUS_CODES.UNAUTHENTICATED:
+                        throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
                     default:
-                        throw Error(WENT_WRONG_ERR);
+                        throw Error(configData.MESSAGES.WENT_WRONG_ERR);
                 }
             }
             const personsList = persons.filter((person) => person.id !== id);
@@ -129,13 +120,13 @@ const Content = () => {
                 </li>
             </div>
             <div className='div-options'>
-                <button className='button-delete' onClick={() => deletePersons(`${BASE_URL}/${person.id}`, person.id)}>
+                <button className='button-delete' onClick={() => deletePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
                         <i className='fa fa-trash-o'></i>
                 </button>
                 <input className='checkbox-update'
                     type='checkbox'
                     checked={person.isPresent}
-                    onChange={() => updatePersons(`${BASE_URL}/${person.id}`, person.id)}></input>
+                    onChange={() => updatePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}></input>
             </div>
         </div>
     );
@@ -146,10 +137,6 @@ const Content = () => {
             <div className='div-content'>
                 <div className='div-add'>
                     <AddPerson
-                        id={id}
-                        setId={setId}
-                        fullName={fullName}
-                        setFullName={setFullName}
                         postPersons={postPersons}
                     />
                 </div>
