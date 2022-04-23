@@ -1,5 +1,5 @@
 {
-    "BASE_URL": "https://localhost:443",
+    "BASE_URL": "http://localhost:8080",
     "STATUS_CODES": {
         "UNAUTHENTICATED": 401,
         "CONFLICT": 409,
