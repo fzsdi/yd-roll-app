@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import configData from "./config.json";
+import configData from "./Config.json";
 import './LoginPage.css'
 
 const LoginPage = () => {

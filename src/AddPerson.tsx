@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import configData from "./config.json";
+import configData from "./Config.json";
 
 type Props = {
     postPersons: (url: string, id: number, fullName: string) => Promise<any>

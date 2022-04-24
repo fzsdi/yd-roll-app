@@ -3,12 +3,13 @@ import AddPerson from './AddPerson';
 import PersonsList from './PersonsList';
 import Header from './Header';
 import './Content.css'
-import configData from "./config.json";
+import configData from "./Config.json";
 
 interface Person { id: number, fullName: string, isPresent: boolean };
 
 const Content = () => {
     const [persons, setPersons] = useState<Person[]>([]);
+    const socket: any = (window as any).Socket;
 
     function getToken() : string {
         const myStorage = window.sessionStorage;
@@ -65,7 +66,17 @@ const Content = () => {
         const listPersons = persons.map((person) => person.id === id ? { ...person,
             isPresent: !person.isPresent} : person);
         const updatedPerson = listPersons.filter((person) => person.id === id);
+        // var msg = {
+        //     type: 'PUT',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json',
+        //         'Authorization': getToken()
+        //     },
+        //     body: JSON.stringify(updatedPerson[0])
+        // }
         try {
+            // socket.send(JSON.stringify(msg))
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {
