@@ -17,6 +17,12 @@ const Content = () => {
         return userToken!;
     }
 
+    function isUnauth() {
+        const myStorage = window.sessionStorage;
+        myStorage.removeItem('Token');
+        window.location.reload();
+    }
+
     useEffect(() => {
         const getPersons = async () => {
             const response = await fetch(configData.BASE_URL + "/persons");
@@ -43,6 +49,7 @@ const Content = () => {
                 if (!response.ok) {
                     switch(response.status) {
                         case configData.STATUS_CODES.UNAUTHENTICATED:
+                            isUnauth();
                             throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
                         case configData.STATUS_CODES.CONFLICT:
                             throw Error(`A person with id ${id} already exists.`);
@@ -89,6 +96,7 @@ const Content = () => {
             if (!response.ok) {
                 switch(response.status) {
                     case configData.STATUS_CODES.UNAUTHENTICATED:
+                        isUnauth();
                         throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
                     default:
                         throw Error(configData.MESSAGES.WENT_WRONG_ERR);
@@ -111,6 +119,7 @@ const Content = () => {
             if (!response.ok) {
                 switch(response.status) {
                     case configData.STATUS_CODES.UNAUTHENTICATED:
+                        isUnauth();
                         throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
                     default:
                         throw Error(configData.MESSAGES.WENT_WRONG_ERR);
