@@ -23,14 +23,15 @@ const Content = () => {
         window.location.reload();
     }
 
+    async function getPersons () {
+        const response = await fetch(configData.BASE_URL + "/persons");
+        const persons = await response.json();
+        setPersons(persons);
+    }
+
     useEffect(() => {
-        const getPersons = async () => {
-            const response = await fetch(configData.BASE_URL + "/persons");
-            const persons = await response.json();
-            setPersons(persons);
-        }
         getPersons();
-    }, []);
+    }, []);    
 
     async function postPersons(url: string, id: number, fullName: string) {
         if (!isNaN(id) && fullName !== "") {
@@ -73,17 +74,7 @@ const Content = () => {
         const listPersons = persons.map((person) => person.id === id ? { ...person,
             isPresent: !person.isPresent} : person);
         const updatedPerson = listPersons.filter((person) => person.id === id);
-        // var msg = {
-        //     type: 'PUT',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json',
-        //         'Authorization': getToken()
-        //     },
-        //     body: JSON.stringify(updatedPerson[0])
-        // }
         try {
-            // socket.send(JSON.stringify(msg))
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {

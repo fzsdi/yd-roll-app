@@ -12,4 +12,4 @@ const PersonsList = (props: Props) => {
   )
 }
 
-export default PersonsList
+export default PersonsList;
