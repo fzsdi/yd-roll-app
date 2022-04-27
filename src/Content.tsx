@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react';
 import AddPerson from './AddPerson';
 import PersonsList from './PersonsList';
 import Header from './Header';
-import './Content.css'
+import './Content.css';
 import configData from "./Config.json";
+import { UserContext } from './UserContext';
+import { LoginContext } from './LoginContext';
 
 interface Person { id: number, fullName: string, isPresent: boolean };
 
 const Content = () => {
     const [persons, setPersons] = useState<Person[]>([]);
-    const socket: any = (window as any).Socket;
+    // const socket: any = (window as any).Socket;
+    const userRole = useContext(UserContext);
+    const username = useContext(LoginContext);
 
     function getToken() : string {
         const myStorage = window.sessionStorage;
@@ -31,7 +35,7 @@ const Content = () => {
 
     useEffect(() => {
         getPersons();
-    }, []);    
+    }, []);
 
     async function postPersons(url: string, id: number, fullName: string) {
         if (!isNaN(id) && fullName !== "") {
@@ -123,34 +127,49 @@ const Content = () => {
         }
     }
 
-    const personsList = persons.map((person) =>
-        <div className='div-list'>
-            <div className='div-title'>
-                <li className='li-show' key={person.id}>
-                        {person.id}) {person.fullName}
-                </li>
-            </div>
+    function Options(person: Person, isUser: boolean) {
+        return (
             <div className='div-options'>
-                <button className='button-delete' onClick={() => deletePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
-                        <i className='fa fa-trash-o'></i>
-                </button>
+                {!isUser &&
+                    <button className='button-delete' onClick={() => deletePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
+                            <i className='fa fa-trash-o'></i>
+                    </button>
+                }
                 <input className='checkbox-update'
                     type='checkbox'
                     checked={person.isPresent}
                     onChange={() => updatePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}></input>
             </div>
+        );
+    }
+
+    const personsList = persons.map((person) =>
+        <div className='div-list'>
+            <div className='div-title'>
+                <li className='li-show' key={person.id}>
+                        ({person.id}) {person.fullName}
+                </li>
+            </div>
+            {userRole === "Admin" &&
+                Options(person, false)
+            }
+            {userRole === "User" && username == person.id &&
+                Options(person, true)
+            }
         </div>
     );
-
+            
     return (
         <div>
             <Header />
             <div className='div-content'>
-                <div className='div-add'>
-                    <AddPerson
-                        postPersons={postPersons}
-                    />
-                </div>
+                {userRole === "Admin" &&
+                    <div className='div-add'>
+                        <AddPerson
+                            postPersons={postPersons}
+                        />
+                    </div>
+                }
                 <PersonsList
                     personsList={personsList}
                 />

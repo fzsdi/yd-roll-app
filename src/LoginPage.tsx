@@ -6,6 +6,7 @@ const LoginPage = () => {
   const[username, setUsername] = useState('');
   const[password, setPassword] = useState('');
   const myStorage = window.sessionStorage;
+
   async function loginUser(url: string, username: number, password: string) {
     if (!isNaN(username) && password !== "") {
       const loginInfo = {
