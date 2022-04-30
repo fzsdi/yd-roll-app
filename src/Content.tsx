@@ -7,9 +7,14 @@ import configData from "./Config.json";
 import { UserContext } from './UserContext';
 import { LoginContext } from './LoginContext';
 
+type Props = {
+    onRefresh(): void;
+    socket: WebSocket
+};
+
 interface Person { id: number, fullName: string, isPresent: boolean };
 
-const Content = () => {
+const Content = (props: Props) => {
     const [persons, setPersons] = useState<Person[]>([]);
     // const socket: any = (window as any).Socket;
     const userRole = useContext(UserContext);
@@ -35,7 +40,12 @@ const Content = () => {
 
     useEffect(() => {
         getPersons();
+        // props.onRefresh = () => getPersons();
     }, []);
+
+    props.socket.onmessage = (event) => {
+        getPersons();
+    };
 
     async function postPersons(url: string, id: number, fullName: string) {
         if (!isNaN(id) && fullName !== "") {

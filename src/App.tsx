@@ -27,6 +27,8 @@ if (userToken) {
   socket = new WebSocket(`ws://localhost:8080/channel?token=${userToken}`);
   parseJwt(userToken!);
 }
+
+const onRefresh = (): void => {};
  
 export default class App extends Component {
   
@@ -38,12 +40,14 @@ export default class App extends Component {
       };
   
       socket.onclose = (event) => {
-        alert("[WebSocket] connection closed. Code: " + (event.code.toString()));
+        if (userToken) {
+          socket = new WebSocket(`ws://localhost:8080/channel?token=${userToken}`);
+        }
+        else {
+          alert("[WebSocket] connection closed. Code: " + (event.code.toString()));
+        }
       };
-  
-      socket.onmessage = (event) => {
-        alert(`[WebSocket] received message: ${event.data.toString()}`);
-      };
+      // socket.onmessage = onRefresh;
     }
   }
   
@@ -51,7 +55,7 @@ export default class App extends Component {
     return (
       <UserContext.Provider value={ userRole }>
         <LoginContext.Provider value={ username }>
-        { userToken ? <Content /> : <LoginPage /> }
+        { userToken ? <Content onRefresh={onRefresh} socket={socket} /> : <LoginPage /> }
         </LoginContext.Provider>
       </UserContext.Provider> 
     )
