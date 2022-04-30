@@ -31,20 +31,20 @@ if (userToken) {
 export default class App extends Component {
   
   componentDidMount() {
-
-    socket.onopen = () => {
-      (window as any).Socket = socket;
-      alert("[WebSocket] connection established.");
-    };
-
-    socket.onclose = (event) => {
-      alert("[WebSocket] connection closed. Code: " + (event.code.toString()));
-    };
-
-    socket.onmessage = (event) => {
-      alert(`[WebSocket] received message: ${event.data.toString()}`);
-    };
-
+    if (userToken) {
+      socket.onopen = () => {
+        (window as any).Socket = socket;
+        alert("[WebSocket] connection established.");
+      };
+  
+      socket.onclose = (event) => {
+        alert("[WebSocket] connection closed. Code: " + (event.code.toString()));
+      };
+  
+      socket.onmessage = (event) => {
+        alert(`[WebSocket] received message: ${event.data.toString()}`);
+      };
+    }
   }
   
   render() {
