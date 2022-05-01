@@ -22,7 +22,7 @@ const LoginPage = () => {
         });
         if (!response.ok) {
           switch (response.status) {
-            case configData.STATUS_CODES.UNAUTHENTICATED:
+            case configData.STATUS_CODES.UNAUTHORIZED:
               throw Error(configData.MESSAGES.NOT_VALID_ERR);
             default:
               throw Error(configData.MESSAGES.WENT_WRONG_ERR);
@@ -32,7 +32,6 @@ const LoginPage = () => {
         let decoder = new TextDecoder('utf-8');
 
         return reader?.read().then(function (result) {
-          console.log(decoder.decode(result.value));
           myStorage.setItem('Token', decoder.decode(result.value));
           window.location.reload();
         });

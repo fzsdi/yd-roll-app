@@ -26,9 +26,9 @@
     margin-right: 5px;
 }
 
-.box-add input:focus {
+/* .box-add input:focus {
     border-color: #772953;
-}
+} */
 
 #input-id {
     border-top-left-radius: 10px 10px;
@@ -37,7 +37,7 @@
 }
 
 .box-add button {
-    background-color: #ffffff;
+    background-color: #772953;
     display: flex;
     outline: none;
     border-top-right-radius: 10px 10px;
@@ -49,21 +49,21 @@
     border: 2px solid #772953;
     outline: none;
     font-family: 'Trebuchet MS';
-    color: #000000;
+    color: #ffffff;
     transition: 0.35s;
     cursor: pointer;
     font-family: 'Trebuchet MS';
 }
 
-.box-add button:hover {
+/* .box-add button:hover {
     background: #772953;
     color: #ffffff;
-}
+} */
 
-.box-add button:focus {
+/* .box-add button:focus {
     background: #772953;
     color: #ffffff;
-}
+} */
 
 .div-list {
     width: 270px;
@@ -83,10 +83,10 @@
     justify-content: center;
 }
 
-.div-list:hover {
+/* .div-list:hover {
     background: #b877a5;
     box-shadow: 0 14px 28px #f3b4e0;
-}
+} */
 
 .li-show {
     list-style-type: none;

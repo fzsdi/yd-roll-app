@@ -1,16 +1,20 @@
 {
     "BASE_URL": "http://localhost:8080",
     "STATUS_CODES": {
-        "UNAUTHENTICATED": 401,
+        "UNAUTHORIZED": 401,
         "CONFLICT": 409,
-        "BAD_REQUEST": 400
+        "BAD_REQUEST": 400,
+        "FORBIDDEN": 403,
+        "NOT_ALLOWED": 405
     },
     "MESSAGES": {
         "NOT_VALID_ERR": "Your username or password is not valid, please try again.",
         "IS_EMPTY_ERR": "Please enter your username and password.",
         "WENT_WRONG_ERR": "Something went wrong :(",
-        "UNAUTHENTICATED_ERR": "You do not have the authority to perform this action.",
+        "FORBIDDEN_ERR": "Forbidden.",
         "BAD_REQUEST_ERR": "Server cannot response.",
-        "NULL_ERR": "Please enter id and full name."
+        "NULL_ERR": "Please enter id and full name.",
+        "UNAUTHORIZED_ERR": "You do not have the authority to perform this action.",
+        "NOT_ALLOWED_ERR": "You are not allowed to perform this action"
     }
 }

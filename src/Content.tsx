@@ -63,9 +63,11 @@ const Content = (props: Props) => {
                 });
                 if (!response.ok) {
                     switch(response.status) {
-                        case configData.STATUS_CODES.UNAUTHENTICATED:
+                        case configData.STATUS_CODES.UNAUTHORIZED:
                             isUnauth();
-                            throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
+                            throw Error(configData.MESSAGES.UNAUTHORIZED_ERR);
+                        case configData.STATUS_CODES.FORBIDDEN:
+                            throw Error(configData.MESSAGES.FORBIDDEN_ERR);
                         case configData.STATUS_CODES.CONFLICT:
                             throw Error(`A person with id ${id} already exists.`);
                         case configData.STATUS_CODES.BAD_REQUEST:
@@ -100,9 +102,11 @@ const Content = (props: Props) => {
             });
             if (!response.ok) {
                 switch(response.status) {
-                    case configData.STATUS_CODES.UNAUTHENTICATED:
+                    case configData.STATUS_CODES.NOT_ALLOWED:
+                        throw Error(configData.MESSAGES.NOT_ALLOWED_ERR);
+                    case configData.STATUS_CODES.UNAUTHORIZED:
                         isUnauth();
-                        throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
+                        throw Error(configData.MESSAGES.UNAUTHORIZED_ERR);
                     default:
                         throw Error(configData.MESSAGES.WENT_WRONG_ERR);
                 }
@@ -123,9 +127,9 @@ const Content = (props: Props) => {
             });
             if (!response.ok) {
                 switch(response.status) {
-                    case configData.STATUS_CODES.UNAUTHENTICATED:
+                    case configData.STATUS_CODES.UNAUTHORIZED:
                         isUnauth();
-                        throw Error(configData.MESSAGES.UNAUTHENTICATED_ERR);
+                        throw Error(configData.MESSAGES.UNAUTHORIZED_ERR);
                     default:
                         throw Error(configData.MESSAGES.WENT_WRONG_ERR);
                 }
@@ -147,8 +151,10 @@ const Content = (props: Props) => {
                 }
                 <input className='checkbox-update'
                     type='checkbox'
+                    disabled={isUser}
                     checked={person.isPresent}
-                    onChange={() => updatePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}></input>
+                    onChange={() => updatePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
+                </input>
             </div>
         );
     }
@@ -161,10 +167,28 @@ const Content = (props: Props) => {
                 </li>
             </div>
             {userRole === "Admin" &&
-                Options(person, false)
+                // Options(person, false)
+                <div className='div-options'>
+                    <button className='button-delete' onClick={() => deletePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
+                            <i className='fa fa-trash-o'></i>
+                    </button>
+                    <input className='checkbox-update'
+                        type='checkbox'
+                        checked={person.isPresent}
+                        onChange={() => updatePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
+                    </input>
+                </div>
             }
-            {userRole === "User" && username == person.id &&
-                Options(person, true)
+            {userRole === "User" && 
+                // Options(person, true)
+                <div className='div-options'>
+                    <input className='checkbox-update'
+                        type='checkbox'
+                        disabled={!(username == person.id)}
+                        checked={person.isPresent}
+                        onChange={() => updatePersons(`${configData.BASE_URL}/persons/${person.id}`, person.id)}>
+                    </input>
+                </div>
             }
         </div>
     );

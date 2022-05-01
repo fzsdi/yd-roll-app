@@ -12,6 +12,8 @@ let socket: WebSocket;
 let userRole = "";
 let username = "";
 
+socket = new WebSocket(`ws://localhost:8080/channel?token=${userToken}`);
+
 function parseJwt (token:string) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -24,33 +26,12 @@ function parseJwt (token:string) {
 };
 
 if (userToken) {
-  socket = new WebSocket(`ws://localhost:8080/channel?token=${userToken}`);
   parseJwt(userToken!);
 }
 
 const onRefresh = (): void => {};
  
 export default class App extends Component {
-  
-  componentDidMount() {
-    if (userToken) {
-      socket.onopen = () => {
-        (window as any).Socket = socket;
-        alert("[WebSocket] connection established.");
-      };
-  
-      socket.onclose = (event) => {
-        if (userToken) {
-          socket = new WebSocket(`ws://localhost:8080/channel?token=${userToken}`);
-        }
-        else {
-          alert("[WebSocket] connection closed. Code: " + (event.code.toString()));
-        }
-      };
-      // socket.onmessage = onRefresh;
-    }
-  }
-  
   render() {
     return (
       <UserContext.Provider value={ userRole }>
