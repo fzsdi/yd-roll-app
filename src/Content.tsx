@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import AddPerson from './AddPerson';
 import PersonsList from './PersonsList';
 import Header from './Header';
+import LoadingSpinner from './LoadingSpinner';
 import './Content.css';
 import configData from "./Config.json";
 import { UserContext } from './UserContext';
@@ -16,6 +17,7 @@ interface Person { id: number, fullName: string, isPresent: boolean };
 
 const Content = (props: Props) => {
     const [persons, setPersons] = useState<Person[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     // const socket: any = (window as any).Socket;
     const userRole = useContext(UserContext);
     const username = useContext(LoginContext);
@@ -33,9 +35,15 @@ const Content = (props: Props) => {
     }
 
     async function getPersons () {
-        const response = await fetch(configData.BASE_URL + "/persons");
-        const persons = await response.json();
-        setPersons(persons);
+        setIsLoading(true);
+        try {
+            const response = await fetch(configData.BASE_URL + "/persons");
+            const persons = await response.json();
+            setPersons(persons);
+        } catch(err) {
+            alert(err);
+        }
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -204,9 +212,7 @@ const Content = (props: Props) => {
                         />
                     </div>
                 }
-                <PersonsList
-                    personsList={personsList}
-                />
+                { isLoading ? <LoadingSpinner/> : <PersonsList personsList={personsList} /> }
             </div>
         </div>
     );
